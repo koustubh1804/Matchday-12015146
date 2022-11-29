@@ -1,0 +1,14 @@
+.video-screen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#video{
+    width: 50%;
+    margin: auto;
+}
+
+.controls > button{
+    margin: 5px;
+}

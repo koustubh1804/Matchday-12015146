@@ -1,0 +1,29 @@
+.match-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.input-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.search-box{
+    padding: 10px;
+    margin-right: 30px;
+}
+
+.match-cards > a{
+    flex-basis: 30%;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+@media screen and (max-width:768px) {
+    
+.match-cards > a{
+    flex-basis: 90%;
+    margin-top: 10px;
+}
+}
