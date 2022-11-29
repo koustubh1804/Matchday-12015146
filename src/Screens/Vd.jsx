@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Video.css";
-import video from "../assets/video.mp4"
+import video from "../assets/video.mp4";
 
 const Video = () => {
   var videoObject = null;
@@ -46,11 +46,7 @@ const Video = () => {
       <header>
         <h2>Video Analytics</h2>
       </header>
-      <video
-        id="video"
-        autoPlay
-        src={video}
-      />
+      <video id="video" autoPlay src={video} />
       <div className="controls">
         <button onClick={play}>Play</button>
         <button onClick={pause}>Pause</button>

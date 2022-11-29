@@ -1,17 +1,17 @@
 import "./App.css";
 import Home from "./Screens/Home";
-import Video from "./Screens/Video";
-import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Vd from "./Screens/Vd";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <Router>
-    <div className="App">
-      <Routes>
-        <Route path="/video" element={<Video />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
+      <div className="App">
+        <Routes>
+          <Route path="/vd" element={<Vd />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

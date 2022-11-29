@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const data = useRef({});
-  const [filteredData, setFilteredData] = useState({});
-  const searchIsOn = useRef(false);
-  const page = useRef(0);
+  const [filteredData, sFD] = useState({});
+  const sIO = useRef(false);
+  const pg = useRef(0);
 
-  function getScrollTop() {
+  function gST() {
     return window.pageYOffset !== undefined
       ? window.pageYOffset
       : (document.documentElement || document.body.parentNode || document.body)
           .scrollTop;
   }
 
-  function getDocumentHeight() {
+  function gDH() {
     const body = document.body;
     const html = document.documentElement;
 
@@ -33,7 +33,7 @@ const Home = () => {
 
   useEffect(() => {
     axios(
-      `https://matchday.ai/referee/champ/fixture/dummy-matches?page=${page.current}`,
+      `https://matchday.ai/referee/champ/fixture/dummy-matches?page=${pg.current}`,
       {
         method: "GET",
         headers: new Headers({
@@ -44,25 +44,21 @@ const Home = () => {
     )
       .then((res) => {
         data.current = res.data;
-        setFilteredData(res.data);
-        page.current = page.current + 1;
+        sFD(res.data);
+        pg.current = pg.current + 1;
       })
       .catch((err) => {
         data.current = Data;
-        setFilteredData(Data);
+        sFD(Data);
       });
 
     window.onscroll = function () {
-      if (!searchIsOn.current) {
-        if (
-          Math.ceil(getScrollTop()) <
-          getDocumentHeight() - window.innerHeight
-        )
-          return;
+      if (!sIO.current) {
+        if (Math.ceil(gST()) < gDH() - window.innerHeight) return;
 
         if (data.current.hasMorePage) {
           axios(
-            `https://matchday.ai/referee/champ/fixture/dummy-matches?page=${page.current}`,
+            `https://matchday.ai/referee/champ/fixture/dummy-matches?page=${pg.current}`,
             {
               method: "GET",
               headers: new Headers({
@@ -76,12 +72,12 @@ const Home = () => {
                 ...res.data,
                 fixtures: [...data.current.fixtures, ...res.data.fixtures],
               };
-              setFilteredData(data.current);
-              page.current = page.current + 1;
+              sFD(data.current);
+              pg.current = pg.current + 1;
             })
             .catch((err) => {
               data.current = Data;
-              setFilteredData(Data);
+              sFD(Data);
             });
         }
       }
@@ -90,10 +86,10 @@ const Home = () => {
 
   const search = (val) => {
     if (!val) {
-      searchIsOn.current = false;
-      return setFilteredData(data.current);
+      sIO.current = false;
+      return sFD(data.current);
     }
-    searchIsOn.current = true;
+    sIO.current = true;
     const filteredDataProcessed = data.current?.fixtures.filter((fixture) => {
       if (
         new RegExp(val.toLowerCase()).test(
@@ -110,7 +106,7 @@ const Home = () => {
       )
         return fixture;
     });
-    setFilteredData({ ...filteredData, fixtures: filteredDataProcessed });
+    sFD({ ...filteredData, fixtures: filteredDataProcessed });
   };
 
   return (
